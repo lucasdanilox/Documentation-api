@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 
 import com.devsuperior.dsmovie.dto.MovieDTO;
@@ -67,7 +68,7 @@ public class MovieController {
                     @ApiResponse(description = "Forbidden", responseCode = "403"),
                     @ApiResponse(description = "Unprocessable Entity", responseCode = "422")
             })
-
+    @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(produces = "application/json")
     public ResponseEntity<MovieDTO> insert(@Valid @RequestBody MovieDTO dto) {
@@ -87,6 +88,7 @@ public class MovieController {
                     @ApiResponse(description = "Forbidden", responseCode = "403"),
                     @ApiResponse(description = "Unprocessable Entity", responseCode = "422")
             })
+    @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<MovieDTO> update(@PathVariable Long id, @Valid @RequestBody MovieDTO dto) {
@@ -105,6 +107,7 @@ public class MovieController {
                     @ApiResponse(description = "Not Found", responseCode = "404"),
                     @ApiResponse(description = "Unprocessable Entity", responseCode = "422")
             })
+    @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<MovieDTO> delete(@PathVariable Long id) {
